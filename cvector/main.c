@@ -6,7 +6,7 @@
 int main ( int argc, char** argv )
 {
 	cvector vec = cvector_create ( sizeof(int) );
-	cvector_reserve ( &vec, 17 );
+	cvector_reserve ( &vec, 16 );
 	for ( int i = 0 ; i < 20 ; ++i ) {
 		cvector_emplace_back ( &vec, &i );
 		printf ( "%d %zd\n", i, vec.capacity );
@@ -16,6 +16,7 @@ int main ( int argc, char** argv )
 		printf ( "%d\n", *(int*)elem );
 	}
 	printf ( "at: %d\n", *(int*)cvector_at ( &vec, 5 ) );
+	// while ( !cvector_empty(&vec) ) cvector_pop_back ( &vec );
 	printf ( "front: %d\n", *(int*)cvector_front ( &vec ) );
 	printf ( "back: %d\n", *(int*)cvector_back ( &vec ) );
 	printf ( "ref: %p\n", vec.ref );

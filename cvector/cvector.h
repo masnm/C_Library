@@ -122,11 +122,13 @@ void* cvector_at ( cvector* vec, size_t at )
 
 void* cvector_front ( cvector* vec )
 {
+	assert ( !cvector_empty(vec) );
 	return cvector_at ( vec, 0 );
 }
 
 void* cvector_back ( cvector* vec )
 {
+	assert ( !cvector_empty(vec) );
 	return cvector_at ( vec, vec->size-1 );
 }
 
