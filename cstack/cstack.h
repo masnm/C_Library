@@ -32,6 +32,7 @@ size_t cstack_capacity ( cstack* cst );
 /* MODIFIERS */
 void cstack_push ( cstack* cst, void* elem );
 void cstack_pop ( cstack* cst );
+void cstack_make_empty ( cstack* cst );
 
 /* Printer for debugger */
 void cstack_print ( cstack* cst, void (*print) ( void* ) );
@@ -100,6 +101,11 @@ void cstack_pop ( cstack* cst )
 {
 	assert ( cst->top != (size_t)0 );
 	cst->top -= (size_t)1;
+}
+
+void cstack_make_empty ( cstack* cst )
+{
+	cst->top = 0;
 }
 
 void cstack_print ( cstack* cst, void (*print) ( void* ) )
