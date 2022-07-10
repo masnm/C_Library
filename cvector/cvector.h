@@ -13,16 +13,16 @@ typedef struct {
 	void *data, *ref;
 } cvector ;
 
-/* Macro Definations */
-#define foreach_element(vec,elem) \
-	elem = vec.data; \
-	for ( size_t iii = 0 ; iii < vec.size ; ++iii, elem += vec.item )
-//	for ( struct { int iii; void* elem } it = { .iii = 0, .elem = vec.data } ; it.iii < vec.size ; ++it.iii, it.elem += vec.item )
+// TODO: Introduce sort function maybe here or in a
+//       seperate header
 
 /* Functions Defination */
 /* CREATE DESTROY */
 cvector cvector_create ( size_t item );
 void cvector_destroy ( cvector* vec );
+
+/* Traversing or side effect */
+void cvector_for_each ( cvector* vec, void (*fun)( void* ) );
 
 /* Element access */
 void* cvector_at ( cvector* vec, size_t at );
@@ -63,6 +63,14 @@ void cvector_destroy ( cvector* vec )
 	vec -> ref = NULL;
 }
 
+void cvector_for_each ( cvector* vec, void (*fun)( void* ) )
+{
+	for ( size_t i = 0 ; i < vec->size ; ++i ) {
+		vec->ref = vec->data + (i * vec->item);
+		fun ( vec->ref );
+	}
+}
+
 void cvector_emplace_back ( cvector* vec, void* elem )
 {
 	if ( vec -> size == vec -> capacity ) {
@@ -78,11 +86,6 @@ void cvector_pop_back ( cvector* vec )
 {
 	assert ( vec->size > 0 );
 	vec->size -= 1;
-	if ( vec->size < vec->capacity / 2 ) {
-		vec -> capacity /= 2;
-		vec -> data = realloc ( vec->data, vec->item * vec->capacity );
-		if ( vec->size != 0 ) assert ( vec -> data != NULL );
-	}
 }
 
 bool cvector_empty ( cvector* vec )

@@ -15,8 +15,10 @@ int main ( int argc, char** argv )
 	printf ( "\n\n\n\n\n" );
 	for ( int i = 0 ; i < 20 ; ++i ) {
 		cqueue_push ( &que, &i );
-		cqueue_print ( &que, mprint );
+		//cqueue_print ( &que, mprint );
 	}
+	// cqueue_make_empty ( &que );
+	cqueue_print ( &que, mprint );
 	printf ( "\n\n\n\n\n" );
 	while ( !cqueue_empty ( &que ) ) {
 		cqueue_pop ( &que );

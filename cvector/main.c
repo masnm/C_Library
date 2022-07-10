@@ -3,6 +3,16 @@
 
 #include "cvector.h"
 
+void plus ( void* ref )
+{
+	*(int*)ref += 1;
+}
+
+void print ( void* ref )
+{
+	printf ( "%d ", *(int*)ref );
+}
+
 int main ( int argc, char** argv )
 {
 	cvector vec = cvector_create ( sizeof(int) );
@@ -11,10 +21,15 @@ int main ( int argc, char** argv )
 		cvector_emplace_back ( &vec, &i );
 		printf ( "%d %zd\n", i, vec.capacity );
 	}
-	void *elem;
-	foreach_element ( vec, elem ) {
-		printf ( "%d\n", *(int*)elem );
-	}
+	cvector_for_each ( &vec, print );
+	printf ( "\n" );
+	cvector_for_each ( &vec, plus );
+	cvector_for_each ( &vec, print );
+	printf ( "\n" );
+	// void *elem;
+	// foreach_element ( vec, elem ) {
+	// 	printf ( "%d\n", *(int*)elem );
+	// }
 	printf ( "at: %d\n", *(int*)cvector_at ( &vec, 5 ) );
 	// while ( !cvector_empty(&vec) ) cvector_pop_back ( &vec );
 	printf ( "front: %d\n", *(int*)cvector_front ( &vec ) );
