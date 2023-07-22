@@ -12,6 +12,15 @@ typedef struct {
     size_t size, capacity, elem_size;
 } cvector ;
 
+cvector cv_create ( size_t size );
+bool allocate_if_necessary ( cvector * cv );
+size_t cv_size ( cvector * cv );
+bool cv_emplace_back ( cvector * cv, void * elem );
+void* cv_at ( cvector * cv, size_t index );
+void cv_destroy ( cvector * cv );
+
+#ifdef CVECTOR_IMPLEMENTATIONS
+
 cvector cv_create ( size_t size ) {
     cvector cv = {
         .data = NULL,
@@ -22,13 +31,6 @@ cvector cv_create ( size_t size ) {
     return cv;
 }
 
-bool allocate_if_necessary ( cvector * cv );
-size_t cv_size ( cvector * cv );
-bool cv_emplace_back ( cvector * cv, void * elem );
-void* cv_at ( cvector * cv, size_t index );
-void cv_destroy ( cvector * cv );
-
-#ifdef CVECTOR_IMPLEMENTATIONS
 bool allocate_if_necessary ( cvector * cv ) {
     if ( cv->size == cv->capacity ) {
         cv->capacity = (cv->capacity == 0 ? 1 : cv->capacity * 2);

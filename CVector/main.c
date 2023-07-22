@@ -15,6 +15,7 @@ int main ( int argc, char ** argv ) {
     for ( int i = 0; i < (int)cv_size ( &cv ); i++ ) {
         printf ( "%d ", *(int*) cv_at ( &cv, (size_t)i ));
     }
+    puts ( "" );
 
     cv_destroy ( &cv );
 
