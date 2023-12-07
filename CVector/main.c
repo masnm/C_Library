@@ -16,6 +16,12 @@ int main ( int argc, char ** argv ) {
         printf ( "%d ", *(int*) cv_at ( &cv, (size_t)i ));
     }
     puts ( "" );
+    int value = 9;
+    printf ( "%d is in vector : %s\n", value,
+            cv_contains ( &cv, &value ) ? "True" : "False" );
+    value = 12;
+    printf ( "%d is in vector : %s\n", value,
+            cv_contains ( &cv, &value ) ? "True" : "False" );
 
     cv_destroy ( &cv );
 

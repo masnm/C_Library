@@ -16,6 +16,7 @@ cvector cv_create ( size_t size );
 bool allocate_if_necessary ( cvector * cv );
 size_t cv_size ( cvector * cv );
 bool cv_emplace_back ( cvector * cv, void * elem );
+bool cv_contains ( cvector * cv, void * elem );
 void* cv_at ( cvector * cv, size_t index );
 void cv_destroy ( cvector * cv );
 
@@ -51,6 +52,13 @@ bool cv_emplace_back ( cvector * cv, void * elem ) {
     memcpy ( cv->data + ( cv->size * cv->elem_size ), elem, cv->elem_size );
     cv->size++;
     return true;
+}
+
+bool cv_contains ( cvector * cv, void * elem ) {
+    for ( size_t i = 0; i < cv->size; ++i )
+        if ( !memcmp ( cv->data + ( i * cv->elem_size ), elem, cv->elem_size ) )
+            return true;
+    return false;
 }
 
 void* cv_at ( cvector * cv, size_t index ) {
